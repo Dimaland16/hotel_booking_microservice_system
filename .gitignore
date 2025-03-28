@@ -1,0 +1,24 @@
+# Java
+*.class
+*.jar
+*.war
+*.ear
+
+# IDE и build файлы
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+target/
+out/
+build/
+*.log
+
+# Maven
+.mvn/
+
+# Gradle
+.gradle/
+*.gradle.kts
+.gradle/

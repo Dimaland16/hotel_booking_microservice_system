@@ -1,0 +1,40 @@
+"2024-12-16 05:09:21 - Starting BookingServiceApplication v0.0.1-SNAPSHOT using Java 22 with PID 1 (/app/booking.jar started by root in /app)
+""2024-12-16 05:09:21 - No active profile set, falling back to 1 default profile: "default"
+""2024-12-16 05:09:34 - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+""2024-12-16 05:09:34 - Finished Spring Data repository scanning in 224 ms. Found 1 JPA repository interface.
+""2024-12-16 05:09:42 - Tomcat initialized with port 8081 (http)
+""2024-12-16 05:09:42 - Starting service [Tomcat]
+""2024-12-16 05:09:42 - Starting Servlet engine: [Apache Tomcat/10.1.33]
+""2024-12-16 05:09:42 - Initializing Spring embedded WebApplicationContext
+""2024-12-16 05:09:42 - Root WebApplicationContext: initialization completed in 20412 ms
+""2024-12-16 05:09:46 - HHH000204: Processing PersistenceUnitInfo [name: default]
+""2024-12-16 05:09:46 - HHH000412: Hibernate ORM core version 6.6.2.Final
+""2024-12-16 05:09:47 - HHH000026: Second-level cache disabled
+""2024-12-16 05:09:50 - No LoadTimeWeaver setup: ignoring JPA class transformer
+""2024-12-16 05:09:50 - HikariPool-1 - Starting...
+""2024-12-16 05:09:52 - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@4247093b
+""2024-12-16 05:09:52 - HikariPool-1 - Start completed.
+""2024-12-16 05:09:53 - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 9.1
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+""2024-12-16 05:09:58 - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+""2024-12-16 05:09:58 - Initialized JPA EntityManagerFactory for persistence unit 'default'
+""2024-12-16 05:10:05 - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+""2024-12-16 05:10:14 - Exposing 4 endpoints beneath base path '/actuator'
+""2024-12-16 05:10:15 - Tomcat started on port 8081 (http) with context path '/'
+""2024-12-16 05:10:15 - Started BookingServiceApplication in 59.932 seconds (process running for 64.08)
+""2024-12-16 05:11:19 - Initializing Spring DispatcherServlet 'dispatcherServlet'
+""2024-12-16 05:11:19 - Initializing Servlet 'dispatcherServlet'
+""2024-12-16 05:11:19 - Completed initialization in 3 ms
+""2024-12-16 05:11:21 - Init duration for springdoc-openapi is: 720 ms
+""2024-12-16 05:28:13 - Commencing graceful shutdown. Waiting for active requests to complete
+""2024-12-16 05:28:13 - Graceful shutdown complete
+""2024-12-16 05:28:13 - Closing JPA EntityManagerFactory for persistence unit 'default'
+""2024-12-16 05:28:13 - HikariPool-1 - Shutdown initiated...
+""2024-12-16 05:28:13 - HikariPool-1 - Shutdown completed.
+"

@@ -1,0 +1,224 @@
+services:
+  room-service:
+    image: dimaland/room-service
+    deploy:
+      replicas: 3               # Указываем 3 реплики (экземпляра)
+      restart_policy:
+        condition: on-failure
+    ports:
+      - "8090:8080"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://room_db:3306/room_service
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=2004
+      - SPRING_APPLICATION_NAME=Room Service
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - SPRING_RABBITMQ_HOST=rabbitmq
+      - SPRING_RABBITMQ_PORT=5672
+      - SPRING_RABBITMQ_USERNAME=guest
+      - SPRING_RABBITMQ_PASSWORD=guest
+      - LOGGING_LEVEL_ROOT=info
+      - LOGGING_FILE_NAME=logs/room-service.log
+      - LOGGING_PATTERN_FILE="%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+      - MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE=info, health, metrics, prometheus
+      - MANAGEMENT_PROMETHEUS_METRICS_EXPORT_ENABLED=true
+      - MANAGEMENT_PROMETHEUS_METRICS_EXPORT_DESCRIPTIONS=true
+      - SPRINGDOC_API_DOCS_PATH=/api-docs
+      - SPRINGDOC_SWAGGER_UI_PATH=/swagger-ui.html
+    volumes:
+      - ./logs:/app/logs
+    depends_on:
+      - room_db
+      - rabbitmq
+
+
+  booking-service:
+    image: dimaland/booking-service
+    deploy:
+      replicas: 3               # Указываем 3 реплики (экземпляра)
+      restart_policy:
+        condition: on-failure
+    ports:
+      - "8091:8081"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://booking_db:3306/booking_service
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=2004
+      - SPRING_APPLICATION_NAME=BookingService
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - SPRING_RABBITMQ_HOST=rabbitmq
+      - SPRING_RABBITMQ_PORT=5672
+      - SPRING_RABBITMQ_USERNAME=guest
+      - SPRING_RABBITMQ_PASSWORD=guest
+      - LOGGING_LEVEL_ROOT=info
+      - LOGGING_FILE_NAME=logs/room-service.log
+      - LOGGING_PATTERN_FILE="%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+      - MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE=info, health, metrics, prometheus
+      - MANAGEMENT_PROMETHEUS_METRICS_EXPORT_ENABLED=true
+      - MANAGEMENT_PROMETHEUS_METRICS_EXPORT_DESCRIPTIONS=true
+      - SPRINGDOC_API_DOCS_PATH=/api-docs
+      - SPRINGDOC_SWAGGER_UI_PATH=/swagger-ui.html
+    volumes:
+      - C:\Users\Dimaland\IdeaProjects\BookingService\logs:/app/logs
+    depends_on:
+      - booking_db
+      - rabbitmq
+
+  customer-service:
+    image: dimaland/customer-service
+    ports:
+      - "8092:8082"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://customer_db:3306/customer_service
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=2004
+      - SPRING_APPLICATION_NAME=Customer Service
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - SPRING_RABBITMQ_HOST=rabbitmq
+      - SPRING_RABBITMQ_PORT=5672
+      - SPRING_RABBITMQ_USERNAME=guest
+      - SPRING_RABBITMQ_PASSWORD=guest
+      - LOGGING_LEVEL_ROOT=info
+      - LOGGING_FILE_NAME=logs/room-service.log
+      - LOGGING_PATTERN_FILE="%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+      - MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE=info, health, metrics, prometheus
+      - MANAGEMENT_PROMETHEUS_METRICS_EXPORT_ENABLED=true
+      - MANAGEMENT_PROMETHEUS_METRICS_EXPORT_DESCRIPTIONS=true
+      - SPRINGDOC_API_DOCS_PATH=/api-docs
+      - SPRINGDOC_SWAGGER_UI_PATH=/swagger-ui.html
+    volumes:
+      - C:\Users\Dimaland\IdeaProjects\Customer Service\logs:/app/logs
+    depends_on:
+      - customer_db
+      - rabbitmq
+
+
+  notification-service:
+    image: dimaland/notification-service
+    ports:
+      - "8093:8083"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://notification_db:3306/notification_service
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=2004
+      - SPRING_APPLICATION_NAME=Customer Service
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - SPRING_RABBITMQ_HOST=rabbitmq
+      - SPRING_RABBITMQ_PORT=5672
+      - SPRING_RABBITMQ_USERNAME=guest
+      - SPRING_RABBITMQ_PASSWORD=guest
+      - LOGGING_LEVEL_ROOT=info
+      - LOGGING_FILE_NAME=logs/room-service.log
+      - LOGGING_PATTERN_FILE="%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+      - MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE=info, health, metrics, prometheus
+      - MANAGEMENT_PROMETHEUS_METRICS_EXPORT_ENABLED=true
+      - MANAGEMENT_PROMETHEUS_METRICS_EXPORT_DESCRIPTIONS=true
+      - SPRINGDOC_API_DOCS_PATH=/api-docs
+      - SPRINGDOC_SWAGGER_UI_PATH=/swagger-ui.html
+    volumes:
+      - C:\Users\Dimaland\IdeaProjects\Notification Service\logs:/app/logs
+    depends_on:
+      - notification_db
+      - rabbitmq
+
+  room_db:
+    image: mysql:9.1.0
+    environment:
+      MYSQL_DATABASE: room_service
+      MYSQL_ROOT_PASSWORD: 2004
+    ports:
+      - "3307:3306"
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    volumes:
+      - room_db-data:/var/lib/mysql
+
+  booking_db:
+    image: mysql:9.1.0
+    environment:
+      MYSQL_DATABASE: booking_service
+      MYSQL_ROOT_PASSWORD: 2004
+    ports:
+      - "3308:3306"
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    volumes:
+      - booking-db-data:/var/lib/mysql
+
+  customer_db:
+    image: mysql:9.1.0
+    environment:
+      MYSQL_DATABASE: customer_service
+      MYSQL_ROOT_PASSWORD: 2004
+    ports:
+      - "3309:3306"
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    volumes:
+      - customer-db-data:/var/lib/mysql
+
+  notification_db:
+    image: mysql:9.1.0
+    environment:
+      MYSQL_DATABASE: notification_service
+      MYSQL_ROOT_PASSWORD: 2004
+    ports:
+      - "3310:3306"
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    volumes:
+      - notification-db-db-data:/var/lib/mysql
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5673:5672"
+      - "15772:15672"
+    healthcheck:
+      test: [ "CMD", "rabbitmq-diagnostics", "status" ]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  prometheus:
+    image: prom/prometheus:latest
+    ports:
+      - "9091:9090"
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+    depends_on:
+      - room-service
+      - booking-service
+      - customer-service
+      - notification-service
+
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3001:3000"
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    volumes:
+      - grafana-data:/var/lib/grafana
+    depends_on:
+      - prometheus
+
+volumes:
+  grafana-data:
+  room_db-data:
+  booking-db-data:
+  customer-db-data:
+  notification-db-db-data:
